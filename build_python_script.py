@@ -12,7 +12,7 @@
 import json, urllib, subprocess, sys
 
 url_base="http://admin.ci.centos.org:8080"
-api="ADD YOUR API KEY HERE"
+api= os.environ['APIKEY']
 ver="7"
 arch="x86_64"
 count=1
@@ -22,7 +22,7 @@ get_nodes_url="%s/Node/get?key=%s&ver=%s&arch=%s&i_count=%s" % (url_base,api,ver
 dat=urllib.urlopen(get_nodes_url).read()
 b=json.loads(dat)
 for h in b['hosts']:
-  cmd="ssh  root@%s 'yum -y install git && git clone https://<GITURL> tests && cd tests && bash -x ./run.sh'" % h
+  cmd="ssh  root@%s 'yum -y install git && git clone https://github.com/CentOS/sig-atomic-buildscripts.git && cd sig-atomic-buildscripts && git checkout downstream && bash -x ./build_ostree_components.sh'" % h
   print cmd
   rtn_code=subprocess.call(cmd, shell=True)
   
