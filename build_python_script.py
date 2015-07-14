@@ -11,6 +11,15 @@
 
 import json, urllib, subprocess, sys
 
+import os
+import signal
+import socket
+import sys
+import time
+import urllib
+
+
+
 url_base="http://admin.ci.centos.org:8080"
 api= os.environ['APIKEY']
 ver="7"
